@@ -55,13 +55,3 @@ test('It uses options passed to got', t => {
 test('It works with custom attribute', t => {
   return process(t, 'attribute', {attribute: 'from'})
 })
-
-test.only('It works together with expressions plugin', t => {
-  return posthtml([
-      plugin(),
-      require('posthtml-expressions')({ locals: { var: 'test' } })
-    ])
-    .process(fixture('expressions'))
-    .then(result => clean(result.html))
-    .then(html => t.is(html, expected('expressions').trim()))
-})
