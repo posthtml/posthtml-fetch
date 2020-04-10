@@ -42,6 +42,38 @@ test('It works with expressions (loop)', t => {
   return process(t, 'loop')
 })
 
+test('It works with options plugins after', t => {
+  return process(t, 'plugins-after', {
+    preserveTag: true,
+    plugins: {
+      before(tree) {
+        return tree.walk(node => {
+          if (typeof node === 'object') {
+            node.attrs.after = '';
+          }
+          return node;
+        })
+      }
+    }
+  })
+})
+
+test('It works with options plugins before', t => {
+  return process(t, 'plugins-before', {
+    preserveTag: true,
+    plugins: {
+      after(tree) {
+        return tree.walk(node => {
+          if (typeof node === 'object') {
+            node.attrs.before = '';
+          }
+          return node;
+        })
+      }
+    }
+  })
+})
+
 test('It fails if attribute contains an invalid URL', t => {
   return error('invalid-src', err => {
     t.is(err.message, 'Invalid URL: invalid')

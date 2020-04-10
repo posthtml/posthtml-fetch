@@ -112,7 +112,10 @@ posthtml()
     attribute: 'from'
   }))
   .process('<fetch from="https://example.test">{{ response }}</fetch>')
-  .then(result => console.log(result.html))
+  .then(result => {
+    console.log(result.html)
+    // => ...interpolated response from https://example.test
+  })
 ```
 
 ### `got`
@@ -132,7 +135,66 @@ posthtml()
     }
   }))
   .process('<fetch url="https://example.test">{{ response }}</fetch>')
-  .then(result => console.log(result.html))
+  .then(result => {
+    console.log(result.html)
+    // => ...interpolated response from https://example.test
+  })
+```
+
+### `preserveTag`
+
+Allows you to leave an item. Default value `false`.
+
+Example:
+
+```js
+const posthtml = require('posthtml')
+const pf = require('posthtml-fetch')
+
+posthtml()
+  .use(pf({
+    preserveTag: true
+  }))
+  .process('<fetch url="https://example.test">{{ response }}</fetch>')
+  .then(result => {
+    console.log(result.html)
+    // => <fetch url="https://example.test">...interpolated response from https://example.test</fetch>
+  })
+```
+
+## Plugins
+
+### `after/before`
+
+List of plugins that will be called after/before receiving and processing `locals`
+
+Example:
+
+```js
+const posthtml = require('posthtml')
+const pf = require('posthtml-fetch')
+
+posthtml()
+  .use(pf({
+    plugins: {
+      after(tree) {
+        // Your plugin implementation
+      },
+      before: [
+        tree => {
+          // Your plugin implementation
+        },
+        tree => {
+          // Your plugin implementation
+        }
+      ]
+    }
+  }))
+  .process('<fetch url="https://example.test">{{ response }}</fetch>')
+  .then(result => {
+    console.log(result.html)
+    // => ...interpolated response from https://example.test
+  })
 ```
 
 
