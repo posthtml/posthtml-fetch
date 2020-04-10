@@ -135,6 +135,38 @@ posthtml()
   .then(result => console.log(result.html))
 ```
 
+## Plugins
+
+### `after/before`
+
+List of plugins that will be called after/before receiving and processing `locals`
+
+Example:
+
+```js
+const posthtml = require('posthtml')
+const pf = require('posthtml-fetch')
+
+posthtml()
+  .use(pf({
+    plugins: {
+      after(tree) {
+        // Your plugin implementation
+      },
+      before: [
+        tree => {
+          // Your plugin implementation
+        },
+        tree => {
+          // Your plugin implementation
+        }
+      ]
+    }
+  }))
+  .process('<fetch url="https://example.test">{{ response }}</fetch>')
+  .then(result => console.log(result.html))
+```
+
 
 
 [npm]: https://www.npmjs.com/package/posthtml-fetch
