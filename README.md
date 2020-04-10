@@ -112,7 +112,10 @@ posthtml()
     attribute: 'from'
   }))
   .process('<fetch from="https://example.test">{{ response }}</fetch>')
-  .then(result => console.log(result.html))
+  .then(result => {
+    console.log(result.html)
+    // => ...interpolated response from https://example.test
+  })
 ```
 
 ### `got`
@@ -132,7 +135,10 @@ posthtml()
     }
   }))
   .process('<fetch url="https://example.test">{{ response }}</fetch>')
-  .then(result => console.log(result.html))
+  .then(result => {
+    console.log(result.html)
+    // => ...interpolated response from https://example.test
+  })
 ```
 
 ### `preserveTag`
@@ -150,7 +156,10 @@ posthtml()
     preserveTag: true
   }))
   .process('<fetch url="https://example.test">{{ response }}</fetch>')
-  .then(result => console.log(result.html))
+  .then(result => {
+    console.log(result.html)
+    // => <fetch url="https://example.test">...interpolated response from https://example.test</fetch>
+  })
 ```
 
 ## Plugins
@@ -182,7 +191,10 @@ posthtml()
     }
   }))
   .process('<fetch url="https://example.test">{{ response }}</fetch>')
-  .then(result => console.log(result.html))
+  .then(result => {
+    console.log(result.html)
+    // => ...interpolated response from https://example.test
+  })
 ```
 
 
