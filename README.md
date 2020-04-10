@@ -135,6 +135,24 @@ posthtml()
   .then(result => console.log(result.html))
 ```
 
+### `preserveTag`
+
+Allows you to leave an item. Default value `false`.
+
+Example:
+
+```js
+const posthtml = require('posthtml')
+const pf = require('posthtml-fetch')
+
+posthtml()
+  .use(pf({
+    preserveTag: true
+  }))
+  .process('<fetch url="https://example.test">{{ response }}</fetch>')
+  .then(result => console.log(result.html))
+```
+
 ## Plugins
 
 ### `after/before`
