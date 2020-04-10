@@ -44,7 +44,7 @@ test('It works with expressions (loop)', t => {
 
 test('It works with options plugins after', t => {
   return process(t, 'plugins-after', {
-    stayTag: true,
+    preserveTag: true,
     plugins: {
       before(tree) {
         return tree.walk(node => {
@@ -60,7 +60,7 @@ test('It works with options plugins after', t => {
 
 test('It works with options plugins before', t => {
   return process(t, 'plugins-before', {
-    stayTag: true,
+    preserveTag: true,
     plugins: {
       after(tree) {
         return tree.walk(node => {
