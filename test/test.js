@@ -46,7 +46,7 @@ test('It works with options plugins after', t => {
   return process(t, 'plugins-after', {
     preserveTag: true,
     plugins: {
-      before(tree) {
+      after(tree) {
         return tree.walk(node => {
           if (typeof node === 'object') {
             node.attrs.after = '';
@@ -62,13 +62,15 @@ test('It works with options plugins before', t => {
   return process(t, 'plugins-before', {
     preserveTag: true,
     plugins: {
-      after(tree) {
-        return tree.walk(node => {
+      before(tree) {
+        tree.walk(node => {
           if (typeof node === 'object') {
             node.attrs.before = '';
           }
           return node;
         })
+
+        return tree;
       }
     }
   })
