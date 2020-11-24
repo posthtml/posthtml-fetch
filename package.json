@@ -30,7 +30,7 @@
   "dependencies": {
     "got": "^11.1.1",
     "posthtml": "^0.15.0",
-    "posthtml-expressions": "^1.4.0",
+    "posthtml-expressions": "^1.6.2",
     "posthtml-match-helper": "^1.0.1"
   },
   "devDependencies": {
