@@ -5,7 +5,7 @@
 
   [![Version][npm-version-shield]][npm]
   [![License][license-shield]][license]
-  [![Build][travis-ci-shield]][travis-ci]
+  [![Build][github-ci-shield]][github-ci]
   [![Downloads][npm-stats-shield]][npm-stats]
 </div>
 
@@ -203,7 +203,7 @@ posthtml()
 [npm-version-shield]: https://img.shields.io/npm/v/posthtml-fetch.svg
 [npm-stats]: http://npm-stat.com/charts.html?package=posthtml-fetch
 [npm-stats-shield]: https://img.shields.io/npm/dt/posthtml-fetch.svg
-[travis-ci]: https://travis-ci.org/posthtml/posthtml-fetch/
-[travis-ci-shield]: https://img.shields.io/travis/posthtml/posthtml-fetch/master.svg
-[license]: ./LICENSE
+[github-ci]: https://github.com/posthtml/posthtml-fetch/actions
+[github-ci-shield]: https://img.shields.io/github/workflow/status/posthtml/posthtml-fetch/Node.js%20CI
+[license]: ./license
 [license-shield]: https://img.shields.io/npm/l/posthtml-fetch.svg
