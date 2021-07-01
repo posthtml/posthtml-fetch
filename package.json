@@ -29,7 +29,7 @@
   ],
   "dependencies": {
     "got": "^11.8.0",
-    "posthtml": "^0.15.0",
+    "posthtml": "^0.16.4",
     "posthtml-expressions": "^1.6.2",
     "posthtml-match-helper": "^1.0.1"
   },
