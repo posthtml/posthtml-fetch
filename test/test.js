@@ -77,7 +77,7 @@ test('It works with options plugins before', async t => {
 
 test('It fails if attribute contains an invalid URL', async t => {
   await error('invalid-src', error_ => {
-    t.is(error_.message, 'Invalid URL: invalid')
+    t.is(error_.code, 'ERR_INVALID_URL')
   })
 })
 
