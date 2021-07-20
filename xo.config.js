@@ -7,6 +7,10 @@ module.exports = {
     'unicorn/string-content': 0,
     'promise/prefer-await-to-then': 0,
     'unicorn/no-abusive-eslint-disable': 0,
-    quotes: ['error', 'single', {allowTemplateLiterals: true}]
-  }
+    'unicorn/prefer-module': 0,
+    quotes: ['error', 'single', {allowTemplateLiterals: true}],
+    'import/extensions': ['error', 'ignorePackages', {
+      '': 'never',
+    }],
+  },
 };

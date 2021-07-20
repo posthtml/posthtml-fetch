@@ -9,13 +9,16 @@
   "repository": "posthtml/posthtml-fetch",
   "main": "lib",
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "scripts": {
     "test": "nyc ava --verbose",
     "pretest": "xo",
     "release": "np"
   },
+  "files": [
+    "lib"
+  ],
   "keywords": [
     "html",
     "posthtml",
@@ -37,6 +40,6 @@
     "ava": "^3.13.0",
     "np": "^7.0.0",
     "nyc": "^15.1.0",
-    "xo": "^0.39.1"
+    "xo": "^0.42.0"
   }
 }
