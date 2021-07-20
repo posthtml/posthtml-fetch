@@ -16,6 +16,9 @@
     "pretest": "xo",
     "release": "np"
   },
+  "files": [
+    "lib"
+  ],
   "keywords": [
     "html",
     "posthtml",
