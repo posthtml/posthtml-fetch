@@ -1,7 +1,7 @@
 <div align="center">
   <img width="150" height="150" title="PostHTML" src="https://posthtml.github.io/posthtml/logo.svg">
-  <h1>Fetch Remote Content</h1>
-  <p>A plugin for fetching and working with remote content</p>
+  <h1>Fetch Remote and Local Content</h1>
+  <p>A plugin for fetching and working with remote and local content</p>
 
   [![Version][npm-version-shield]][npm]
   [![License][license-shield]][license]
@@ -11,7 +11,7 @@
 
 ## About
 
-This plugin allows you to fetch remote content and display it in your HTML.
+This plugin allows you to fetch remote or local content and display it in your HTML.
 
 Input:
 

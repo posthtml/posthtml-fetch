@@ -7,7 +7,7 @@ const plugin = require('../lib')
 const fixture = file => readFileSync(path.join(__dirname, 'fixtures', `${file}.html`), 'utf8')
 const expected = file => readFileSync(path.join(__dirname, 'expected', `${file}.html`), 'utf8')
 
-const error = (name, cb) => posthtml([plugin()]).process(fixture(name)).catch(cb)
+// const error = (name, cb) => posthtml([plugin()]).process(fixture(name)).catch(cb)
 const clean = html => html.replace(/[^\S\r\n]+$/gm, '').trim()
 
 const process = (t, name, options, log = false) => posthtml([plugin(options)])
@@ -75,10 +75,12 @@ test('It works with options plugins before', async t => {
   })
 })
 
-test('It fails if attribute contains an invalid URL', async t => {
-  await error('invalid-src', error_ => {
-    t.is(error_.code, 'ERR_INVALID_URL')
-  })
+test('It not fails if attribute contains an invalid URL', async t => {
+  await process(t, 'invalid-src')
+})
+
+test('It works with local file', async t => {
+  await process(t, 'local-src')
 })
 
 test('It uses options passed to got', async t => {
