@@ -32,13 +32,13 @@
   ],
   "dependencies": {
     "got": "^11.8.0",
+    "is-url": "^1.2.4",
     "posthtml": "^0.16.4",
     "posthtml-expressions": "^1.6.2",
     "posthtml-match-helper": "^1.0.1"
   },
   "devDependencies": {
     "ava": "^3.13.0",
-    "is-url": "^1.2.4",
     "np": "^7.0.0",
     "nyc": "^15.1.0",
     "xo": "^0.42.0"
