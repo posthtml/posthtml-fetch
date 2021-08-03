@@ -1,7 +1,7 @@
 {
   "name": "posthtml-fetch",
   "description": "PostHTML plugin for fetching and displaying remote content.",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "license": "MIT",
   "author": "Cosmin Popovici (https://github.com/cossssmin)",
   "bugs": "https://github.com/posthtml/posthtml-fetch/issues",
