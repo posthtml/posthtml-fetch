@@ -36,15 +36,13 @@ $ npm i posthtml posthtml-fetch
 ## Usage
 
 ```js
-const posthtml = require('posthtml')
-const pf = require('posthtml-fetch')
+import posthtml from 'posthtml'
+import pf from 'posthtml-fetch'
 
 posthtml()
   .use(pf())
   .process('<fetch url="https://example.test">{{ response }}</fetch>')
   .then(result => console.log(result.html))
-
-  // response body
 ```
 
 The response body will be available under the `response` local variable.
@@ -84,8 +82,8 @@ Only tags from this array will be processed by the plugin.
 Example:
 
 ```js
-const posthtml = require('posthtml')
-const pf = require('posthtml-fetch')
+import posthtml from 'posthtml'
+import pf from 'posthtml-fetch'
 
 posthtml()
   .use(pf({
@@ -104,18 +102,16 @@ String representing attribute name containing the URL to fetch.
 Example:
 
 ```js
-const posthtml = require('posthtml')
-const pf = require('posthtml-fetch')
+import posthtml from 'posthtml'
+import pf from 'posthtml-fetch'
 
 posthtml()
   .use(pf({
     attribute: 'from'
   }))
   .process('<fetch from="https://example.test">{{ response }}</fetch>')
-  .then(result => {
-    console.log(result.html)
-    // => ...interpolated response from https://example.test
-  })
+  .then(result => console.log(result.html))
+  // => ...interpolated response from https://example.test
 ```
 
 ### `got`
@@ -125,8 +121,8 @@ The plugin uses [`got`](https://github.com/sindresorhus/got) to fetch data. You 
 Example:
 
 ```js
-const posthtml = require('posthtml')
-const pf = require('posthtml-fetch')
+import posthtml from 'posthtml'
+import pf from 'posthtml-fetch'
 
 posthtml()
   .use(pf({
@@ -135,10 +131,7 @@ posthtml()
     }
   }))
   .process('<fetch url="https://example.test">{{ response }}</fetch>')
-  .then(result => {
-    console.log(result.html)
-    // => ...interpolated response from https://example.test
-  })
+  .then(result => console.log(result.html))
 ```
 
 ### `preserveTag`
@@ -148,18 +141,21 @@ Allows you to leave an item. Default value `false`.
 Example:
 
 ```js
-const posthtml = require('posthtml')
-const pf = require('posthtml-fetch')
+import posthtml from 'posthtml'
+import pf from 'posthtml-fetch'
 
 posthtml()
   .use(pf({
     preserveTag: true
   }))
   .process('<fetch url="https://example.test">{{ response }}</fetch>')
-  .then(result => {
-    console.log(result.html)
-    // => <fetch url="https://example.test">...interpolated response from https://example.test</fetch>
-  })
+  .then(result => console.log(result.html))
+```
+
+Result:
+
+```html
+<fetch url="https://example.test">...interpolated response from https://example.test</fetch>
 ```
 
 ## Plugins
@@ -171,8 +167,8 @@ List of plugins that will be called after/before receiving and processing `local
 Example:
 
 ```js
-const posthtml = require('posthtml')
-const pf = require('posthtml-fetch')
+import posthtml from 'posthtml'
+import pf from 'posthtml-fetch'
 
 posthtml()
   .use(pf({
@@ -191,13 +187,8 @@ posthtml()
     }
   }))
   .process('<fetch url="https://example.test">{{ response }}</fetch>')
-  .then(result => {
-    console.log(result.html)
-    // => ...interpolated response from https://example.test
-  })
+  .then(result => console.log(result.html))
 ```
-
-
 
 [npm]: https://www.npmjs.com/package/posthtml-fetch
 [npm-version-shield]: https://img.shields.io/npm/v/posthtml-fetch.svg

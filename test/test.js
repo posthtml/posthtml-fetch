@@ -1,19 +1,23 @@
-const path = require('path')
-const {readFileSync} = require('fs')
-const test = require('ava')
-const posthtml = require('posthtml')
-const plugin = require('../lib')
+import path from 'node:path'
+import {readFileSync} from 'node:fs'
+import {fileURLToPath} from 'node:url'
+import test from 'ava'
+import posthtml from 'posthtml'
+import plugin from '../lib/index.js'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const fixture = file => readFileSync(path.join(__dirname, 'fixtures', `${file}.html`), 'utf8')
 const expected = file => readFileSync(path.join(__dirname, 'expected', `${file}.html`), 'utf8')
 
-// const error = (name, cb) => posthtml([plugin()]).process(fixture(name)).catch(cb)
 const clean = html => html.replace(/[^\S\r\n]+$/gm, '').trim()
 
-const process = (t, name, options, log = false) => posthtml([plugin(options)])
-  .process(fixture(name))
-  .then(result => log ? console.log(result.html) : clean(result.html))
-  .then(html => t.is(html, expected(name).trim()))
+const process = (t, name, options, log = false) => {
+  return posthtml([plugin(options)])
+    .process(fixture(name))
+    .then(result => log ? console.log(result.html) : clean(result.html))
+    .then(html => t.is(html, expected(name).trim()))
+}
 
 test('It renders the string if response is a string', async t => {
   await process(t, 'string')
@@ -46,10 +50,10 @@ test('It works with options plugins after', async t => {
       after(tree) {
         return tree.walk(node => {
           if (typeof node === 'object') {
-            node.attrs.after = '';
+            node.attrs.after = ''
           }
 
-          return node;
+          return node
         })
       },
     },
@@ -63,13 +67,13 @@ test('It works with options plugins before', async t => {
       before(tree) {
         tree.walk(node => {
           if (typeof node === 'object') {
-            node.attrs.before = '';
+            node.attrs.before = ''
           }
 
-          return node;
+          return node
         })
 
-        return tree;
+        return tree
       },
     },
   })
