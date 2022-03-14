@@ -90,3 +90,7 @@ test('It uses options passed to got', async t => {
 test('It works with custom attribute', async t => {
   await process(t, 'attribute', {attribute: 'from'})
 })
+
+test('It works with multiple call of fetch', async t => {
+  await process(t, 'multiple-src')
+})
