@@ -44,7 +44,7 @@ posthtml()
   .process('<fetch url="https://example.test">{{ response }}</fetch>')
   .then(result => console.log(result.html))
 
-  // response body
+  // => interpolated response body
 ```
 
 The response body will be available under the `response` local variable.
@@ -114,7 +114,7 @@ posthtml()
   .process('<fetch from="https://example.test">{{ response }}</fetch>')
   .then(result => {
     console.log(result.html)
-    // => ...interpolated response from https://example.test
+    // => interpolated response body
   })
 ```
 
@@ -137,13 +137,15 @@ posthtml()
   .process('<fetch url="https://example.test">{{ response }}</fetch>')
   .then(result => {
     console.log(result.html)
-    // => ...interpolated response from https://example.test
+    // => interpolated response body
   })
 ```
 
 ### `preserveTag`
 
-Allows you to leave an item. Default value `false`.
+Default: `false`
+
+When set to `true`, this option will preserve the `tag` around the response body.
 
 Example:
 
@@ -158,7 +160,32 @@ posthtml()
   .process('<fetch url="https://example.test">{{ response }}</fetch>')
   .then(result => {
     console.log(result.html)
-    // => <fetch url="https://example.test">...interpolated response from https://example.test</fetch>
+    // => <fetch url="https://example.test">interpolated response body</fetch>
+  })
+```
+
+### `expressions`
+
+Default: `{}`
+
+You can pass options to `posthtml-expressions`.
+
+Example:
+
+```js
+const posthtml = require('posthtml')
+const pf = require('posthtml-fetch')
+
+posthtml()
+  .use(pf({
+    expressions: {
+      delimiters: ['[[', ']]'],
+    }
+  }))
+  .process('<fetch url="https://example.test">[[ response ]]</fetch>')
+  .then(result => {
+    console.log(result.html)
+    // => interpolated response body
   })
 ```
 
@@ -193,7 +220,7 @@ posthtml()
   .process('<fetch url="https://example.test">{{ response }}</fetch>')
   .then(result => {
     console.log(result.html)
-    // => ...interpolated response from https://example.test
+    // => interpolated response body
   })
 ```
 

@@ -94,3 +94,7 @@ test('It works with custom attribute', async t => {
 test('It works with multiple call of fetch', async t => {
   await process(t, 'multiple-src')
 })
+
+test('It works with options passed to posthtml-expressions', async t => {
+  await process(t, 'expressions-options', {expressions: {delimiters: ['[[', ']]']}})
+})

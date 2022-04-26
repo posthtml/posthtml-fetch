@@ -33,6 +33,7 @@
   "dependencies": {
     "got": "^11.8.0",
     "is-url": "^1.2.4",
+    "lodash.merge": "^4.6.2",
     "posthtml": "^0.16.4",
     "posthtml-expressions": "^1.6.2",
     "posthtml-match-helper": "^1.0.1"
