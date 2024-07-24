@@ -1,6 +1,6 @@
 <div align="center">
   <img width="150" height="150" title="PostHTML" src="https://posthtml.github.io/posthtml/logo.svg">
-  <h1>Fetch Remote and Local Content</h1>
+  <h1>Fetch Content</h1>
   <p>A plugin for fetching and working with remote and local content</p>
 
   [![Version][npm-version-shield]][npm]
@@ -15,7 +15,7 @@ This plugin allows you to fetch remote or local content and display it in your H
 
 Input:
 
-```html
+```hbs
 <fetch url="https://jsonplaceholder.typicode.com/users/1">
   {{ response.name }}'s username is {{ response.username }}
 </fetch>
@@ -30,17 +30,17 @@ Leanne Graham's username is Bret
 ## Install
 
 ```
-$ npm i posthtml posthtml-fetch
+npm i posthtml posthtml-fetch
 ```
 
 ## Usage
 
 ```js
 const posthtml = require('posthtml')
-const pf = require('posthtml-fetch')
+const posthtmlFetch = require('posthtml-fetch')
 
 posthtml()
-  .use(pf())
+  .use(posthtmlFetch())
   .process('<fetch url="https://example.test">{{ response }}</fetch>')
   .then(result => console.log(result.html))
 
@@ -61,7 +61,7 @@ The plugin uses [`posthtml-expressions`](https://github.com/posthtml/posthtml-ex
 
 For example, you can iterate over items in a JSON response:
 
-```html
+```hbs
 <fetch url="https://jsonplaceholder.typicode.com/users">
   <each loop="user in response">
     {{ user.name }}
@@ -71,10 +71,11 @@ For example, you can iterate over items in a JSON response:
 
 ## Options
 
-You can configure the plugin with the following options.
+You may configure the plugin with the following options.
 
 ### `tags`
 
+Type: `String[]`\
 Default: `['fetch', 'remote']`
 
 Array of supported tag names. 
@@ -85,10 +86,10 @@ Example:
 
 ```js
 const posthtml = require('posthtml')
-const pf = require('posthtml-fetch')
+const posthtmlFetch = require('posthtml-fetch')
 
 posthtml()
-  .use(pf({
+  .use(posthtmlFetch({
     tags: ['get']
   }))
   .process('<get url="https://example.test">{{ response }}</get>')
@@ -97,6 +98,7 @@ posthtml()
 
 ### `attribute`
 
+Type: `String`\
 Default: `'url'`
 
 String representing attribute name containing the URL to fetch.
@@ -105,44 +107,43 @@ Example:
 
 ```js
 const posthtml = require('posthtml')
-const pf = require('posthtml-fetch')
+const posthtmlFetch = require('posthtml-fetch')
 
 posthtml()
-  .use(pf({
+  .use(posthtmlFetch({
     attribute: 'from'
   }))
   .process('<fetch from="https://example.test">{{ response }}</fetch>')
   .then(result => {
-    console.log(result.html)
-    // => interpolated response body
+    console.log(result.html) // interpolated response body
   })
 ```
 
-### `got`
+### `ofetch`
 
-The plugin uses [`got`](https://github.com/sindresorhus/got) to fetch data. You can pass options directly to it, inside the `got` object.
+The plugin uses [`ofetch`](https://unjs.io/packages/ofetch) to fetch data. You can pass options directly to it, inside the `ofetch` object.
 
 Example:
 
 ```js
 const posthtml = require('posthtml')
-const pf = require('posthtml-fetch')
+const posthtmlFetch = require('posthtml-fetch')
 
 posthtml()
-  .use(pf({
-    got: {
-      // pass options to got...
+  .use(posthtmlFetch({
+    ofetch: {
+      // pass options to ofetch...
     }
   }))
   .process('<fetch url="https://example.test">{{ response }}</fetch>')
   .then(result => {
-    console.log(result.html)
-    // => interpolated response body
+    console.log(result.html) // interpolated response body
   })
 ```
 
 ### `preserveTag`
 
+Type: `Boolean`\
 Default: `false`
 
 When set to `true`, this option will preserve the `tag` around the response body.
@@ -151,10 +152,10 @@ Example:
 
 ```js
 const posthtml = require('posthtml')
-const pf = require('posthtml-fetch')
+const posthtmlFetch = require('posthtml-fetch')
 
 posthtml()
-  .use(pf({
+  .use(posthtmlFetch({
     preserveTag: true
   }))
   .process('<fetch url="https://example.test">{{ response }}</fetch>')
@@ -166,6 +167,7 @@ posthtml()
 
 ### `expressions`
 
+Type: `Object`\
 Default: `{}`
 
 You can pass options to `posthtml-expressions`.
@@ -174,18 +176,17 @@ Example:
 
 ```js
 const posthtml = require('posthtml')
-const pf = require('posthtml-fetch')
+const posthtmlFetch = require('posthtml-fetch')
 
 posthtml()
-  .use(pf({
+  .use(posthtmlFetch({
     expressions: {
       delimiters: ['[[', ']]'],
     }
   }))
   .process('<fetch url="https://example.test">[[ response ]]</fetch>')
   .then(result => {
-    console.log(result.html)
-    // => interpolated response body
+    console.log(result.html) // interpolated response body
   })
 ```
 
@@ -199,15 +200,20 @@ Example:
 
 ```js
 const posthtml = require('posthtml')
-const pf = require('posthtml-fetch')
+const posthtmlFetch = require('posthtml-fetch')
 
 posthtml()
-  .use(pf({
+  .use(posthtmlFetch({
     plugins: {
-      after(tree) {
-        // Your plugin implementation
-      },
       before: [
+        tree => {
+          // Your plugin implementation
+        },
+        tree => {
+          // Your plugin implementation
+        }
+      ],
+      after: [
         tree => {
           // Your plugin implementation
         },
@@ -219,12 +225,9 @@ posthtml()
   }))
   .process('<fetch url="https://example.test">{{ response }}</fetch>')
   .then(result => {
-    console.log(result.html)
-    // => interpolated response body
+    console.log(result.html) // interpolated response body
   })
 ```
-
-
 
 [npm]: https://www.npmjs.com/package/posthtml-fetch
 [npm-version-shield]: https://img.shields.io/npm/v/posthtml-fetch.svg
