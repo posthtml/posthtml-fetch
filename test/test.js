@@ -1,63 +1,78 @@
-const path = require('path')
-const {readFileSync} = require('fs')
-const test = require('ava')
-const posthtml = require('posthtml')
-const plugin = require('../lib')
+import path from 'node:path'
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import { test, expect } from 'vitest'
+import posthtml from 'posthtml'
+import plugin from '../lib/index.js'
 
-const fixture = file => readFileSync(path.join(__dirname, 'fixtures', `${file}.html`), 'utf8')
-const expected = file => readFileSync(path.join(__dirname, 'expected', `${file}.html`), 'utf8')
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-// const error = (name, cb) => posthtml([plugin()]).process(fixture(name)).catch(cb)
+const fixture = file => readFileSync(path.join(__dirname, 'fixtures', `${file}.html`), 'utf8').trim()
+const expected = file => readFileSync(path.join(__dirname, 'expected', `${file}.html`), 'utf8').trim()
+
+const error = (name, options, cb) => posthtml([plugin(options)]).process(fixture(name)).catch(cb)
 const clean = html => html.replace(/[^\S\r\n]+$/gm, '').trim()
 
-const process = (t, name, options, log = false) => posthtml([plugin(options)])
-  .process(fixture(name))
-  .then(result => log ? console.log(result.html) : clean(result.html))
-  .then(html => t.is(html, expected(name).trim()))
+const process = (name, options, log = false) => {
+  return posthtml([plugin(options)])
+    .process(fixture(name))
+    .then(result => log ? console.log(result.html) : clean(result.html))
+    .then(html => expect(html).toEqual(expected(name)))
+}
 
-test('It renders the string if response is a string', async t => {
-  await process(t, 'string')
+test('It renders the string if response is a string', () => {
+  process('string')
 })
 
-test('It works with object responses', async t => {
-  await process(t, 'object')
+test('It works with object responses', () => {
+  process('object')
 })
 
-test('It works with custom tags', async t => {
-  await process(t, 'tag', {tags: ['pull-in']})
+test('It works with custom tags', () => {
+  process('tag', {tags: ['pull-in']})
 })
 
-test('It skips node if attribute is missing', async t => {
-  await process(t, 'no-attribute')
+test('It skips node if attribute is missing', () => {
+  process('no-attribute')
 })
 
-test('It skips node if src attribute is empty', async t => {
-  await process(t, 'no-attribute-value')
+test('It skips node if src attribute is empty', () => {
+  process('no-attribute-value')
 })
 
-test('It works with expressions (loop)', async t => {
-  await process(t, 'loop')
+test('It works with expressions (loop)', () => {
+  process('loop')
 })
 
-test('It works with options plugins after', async t => {
-  await process(t, 'plugins-after', {
-    preserveTag: true,
+test('It works with options plugins after', () => {
+  process('plugins-after', {
     plugins: {
-      after(tree) {
-        return tree.walk(node => {
-          if (typeof node === 'object') {
-            node.attrs.after = '';
-          }
+      after: [
+        tree => {
+          return tree.walk(node => {
+            if (typeof node === 'object') {
+              node.content = node.content.map(content => content.toUpperCase())
+            }
 
-          return node;
-        })
-      },
+            return node;
+          })
+        },
+        tree => {
+          return tree.walk(node => {
+            if (typeof node === 'object') {
+              node.content = node.content.map(content => content.split('').reverse().join(''))
+            }
+
+            return node;
+          })
+        }
+      ]
     },
   })
 })
 
-test('It works with options plugins before', async t => {
-  await process(t, 'plugins-before', {
+test('It works with options plugins before', () => {
+  process('plugins-before', {
     preserveTag: true,
     plugins: {
       before(tree) {
@@ -75,26 +90,26 @@ test('It works with options plugins before', async t => {
   })
 })
 
-test('It not fails if attribute contains an invalid URL', async t => {
-  await process(t, 'invalid-src')
+test('It not fails if attribute contains an invalid URL', () => {
+  process('invalid-src')
 })
 
-test('It works with local file', async t => {
-  await process(t, 'local-src')
+test('It works with local file', () => {
+  process('local-src')
 })
 
-test('It uses options passed to got', async t => {
-  await process(t, 'got-options', {got: {url: 'http://www.mocky.io/v2/5e837ecb3000008906cf3e9c'}})
+test('It uses options passed to ofetch', () => {
+  process('ofetch-options', { ofetch: { parseResponse: JSON.parse }})
 })
 
-test('It works with custom attribute', async t => {
-  await process(t, 'attribute', {attribute: 'from'})
+test('It works with custom attribute', () => {
+  process('attribute', {attribute: 'from'})
 })
 
-test('It works with multiple call of fetch', async t => {
-  await process(t, 'multiple-src')
+test('It works with multiple call of fetch', () => {
+  process('multiple-src')
 })
 
-test('It works with options passed to posthtml-expressions', async t => {
-  await process(t, 'expressions-options', {expressions: {delimiters: ['[[', ']]']}})
+test('It works with options passed to posthtml-expressions', () => {
+  process('expressions-options', {expressions: {delimiters: ['[[', ']]']}})
 })
