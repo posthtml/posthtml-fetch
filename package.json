@@ -8,6 +8,11 @@
   "homepage": "https://github.com/posthtml/posthtml-fetch",
   "repository": "posthtml/posthtml-fetch",
   "main": "lib",
+  "types": "types/index.d.ts",
+  "files": [
+    "lib",
+    "types"
+  ],
   "engines": {
     "node": ">=14.0.0"
   },
@@ -18,9 +23,6 @@
     "test": "vitest run --coverage",
     "lint": "biome lint ./lib ./test"
   },
-  "files": [
-    "lib"
-  ],
   "keywords": [
     "html",
     "posthtml",
