@@ -1,24 +1,28 @@
 {
   "name": "posthtml-fetch",
   "description": "PostHTML plugin for fetching and displaying remote content.",
-  "version": "3.0.0",
+  "version": "4.0.0-beta.1",
   "license": "MIT",
   "author": "Cosmin Popovici (https://github.com/cossssmin)",
   "bugs": "https://github.com/posthtml/posthtml-fetch/issues",
   "homepage": "https://github.com/posthtml/posthtml-fetch",
   "repository": "posthtml/posthtml-fetch",
   "main": "lib",
+  "types": "types/index.d.ts",
+  "files": [
+    "lib",
+    "types"
+  ],
   "engines": {
     "node": ">=14.0.0"
   },
   "scripts": {
-    "test": "c8 ava --verbose",
-    "pretest": "xo",
-    "release": "np"
+    "dev": "vitest",
+    "release": "npx np",
+    "pretest": "npm run lint",
+    "test": "vitest run --coverage",
+    "lint": "biome lint ./lib ./test"
   },
-  "files": [
-    "lib"
-  ],
   "keywords": [
     "html",
     "posthtml",
@@ -31,17 +35,16 @@
     "got"
   ],
   "dependencies": {
-    "got": "^11.8.0",
+    "defu": "^6.1.4",
     "is-url": "^1.2.4",
-    "lodash.merge": "^4.6.2",
-    "posthtml": "^0.16.4",
-    "posthtml-expressions": "^1.6.2",
+    "ofetch": "^1.3.4",
+    "posthtml": "^0.16.6",
+    "posthtml-expressions": "^1.11.3",
     "posthtml-match-helper": "^1.0.1"
   },
   "devDependencies": {
-    "ava": "^5.2.0",
-    "c8": "^8.0.0",
-    "np": "^8.0.2",
-    "xo": "^0.53.1"
+    "@biomejs/biome": "1.8.3",
+    "@vitest/coverage-v8": "^2.0.4",
+    "vitest": "^2.0.4"
   }
 }
