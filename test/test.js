@@ -10,7 +10,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const fixture = file => readFileSync(path.join(__dirname, 'fixtures', `${file}.html`), 'utf8').trim()
 const expected = file => readFileSync(path.join(__dirname, 'expected', `${file}.html`), 'utf8').trim()
 
-const error = (name, options, cb) => posthtml([plugin(options)]).process(fixture(name)).catch(cb)
+const _error = (name, options, cb) => posthtml([plugin(options)]).process(fixture(name)).catch(cb)
 const clean = html => html.replace(/[^\S\r\n]+$/gm, '').trim()
 
 const process = (name, options, log = false) => {
