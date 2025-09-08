@@ -42,7 +42,7 @@
     "posthtml-match-helper": "^1.0.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.2",
+    "@biomejs/biome": "2.2.3",
     "@vitest/coverage-v8": "^3.0.6",
     "vitest": "^3.0.6"
   }
